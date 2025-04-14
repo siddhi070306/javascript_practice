@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Fitness - Level Up Your Workout</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config={
+            theme:{
+                extend:{
+                    colors:{
+                        primary:'#6366f1',
+                        secondary:'#8b5cf6'
+                    },
+                    borderRadius:{
+                        'none':'0px',
+                        'sm':'4px',
+                        DEFAULT:'8px',
+                        'md':'12px',
+                        'lg':'16px',
+                        'xl':'20px',
+                        '2xl':'24px',
+                        '3xl':'32px',
+                        'full':'9999px',
+                        'button':'8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <link rel="stylesheet" href="week2.css">
+</head>
+<body>
+    <!-- Intro Page -->
+    <div id="intro-page" class="intro-bg min-h-screen flex items-center justify-center">
+        <div class="intro-content text-center">
+            <h1 class="text-5xl md:text-7xl font-orbitron font-bold mb-6 text-white glow-text">SOLO FITNESS</h1>
+            <p class="text-xl md:text-2xl mb-12 max-w-2xl mx-auto text-gray-300">Level up your fitness journey with our system-based workout tracker. Complete tasks, gain XP, and avoid penalties.</p>
+            <button id="enter-button" class="bg-primary hover:bg-opacity-90 text-white font-orbitron font-bold py-4 px-10 text-xl !rounded-button glow pulse whitespace-nowrap">ENTER THE SYSTEM</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="dashboard-bg min-h-screen hidden-section">
+        <div class="container mx-auto px-4 py-8">
+            <!-- User Profile Section -->
+            <div class="card p-6 mb-8 !rounded">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <div class="w-24 h-24 rounded-full bg-gray-800 border-2 border-primary glow flex items-center justify-center relative">
+                        <div class="w-20 h-20 rounded-full overflow-hidden">
+                            <!-- <img src="https://readdy.ai/api/search-image?query=silhouette%20of%20a%20male%20fitness%20enthusiast%20with%20glowing%20blue%20aura%2C%20digital%20art%20style%2C%20minimalist%20design%2C%20dark%20background%2C%20solo%20leveling%20inspired&width=200&height=200&seq=2&orientation=squarish" alt="User Avatar" class="w-full h-full object-cover object-top"> -->
+                        </div>
+                        <div class="absolute -bottom-2 -right-2 bg-primary text-white text-xs font-bold rounded-full w-8 h-8 flex items-center justify-center glow">
+                            42
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <div>
+                                <h2 class="text-2xl font-orbitron font-bold text-white">Sung Jin-woo</h2>
+                                <p class="text-gray-400">Rank: <span class="text-primary">Beginner</span></p>
+                            </div>
+                            <div class="mt-4 md:mt-0">
+                                <div class="flex items-center gap-4">
+                                    <span class="text-gray-400">Penalties:</span>
+                                    <div class="penalty-counter">
+                                        <div class="penalty-icon penalty-active"></div>
+                                        <div class="penalty-icon"></div>
+                                        <div class="penalty-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-300">XP Progress: 3,450 / 5,000</span>
+                                <span class="text-sm font-medium text-gray-300">69%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 69%"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                            <div class="bg-gray-800 bg-opacity-50 p-3 !rounded">
+                                <p class="text-gray-400 text-sm">Workouts</p>
+                                <p class="text-xl font-bold">247</p>
+                            </div>
+                            <div class="bg-gray-800 bg-opacity-50 p-3 !rounded">
+                                <p class="text-gray-400 text-sm">Current Streak</p>
+                                <p class="text-xl font-bold">14 days</p>
+                            </div>
+                            <div class="bg-gray-800 bg-opacity-50 p-3 !rounded">
+                                <p class="text-gray-400 text-sm">Best Streak</p>
+                                <p class="text-xl font-bold">31 days</p>
+                            </div>
+                            <div class="bg-gray-800 bg-opacity-50 p-3 !rounded">
+                                <p class="text-gray-400 text-sm">Achievements</p>
+                                <p class="text-xl font-bold">18</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Navigation Menu -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <button id="workout-nav" class="nav-button card p-8 flex flex-col items-center justify-center text-center !rounded-button glow whitespace-nowrap">
+                    <div class="w-16 h-16 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-calendar-todo-line ri-xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-orbitron font-bold text-white mb-2">Workout Plan</h3>
+                    <p class="text-gray-400">View and complete your daily tasks</p>
+                </button>
+                <button id="progress-nav" class="nav-button card p-8 flex flex-col items-center justify-center text-center !rounded-button glow whitespace-nowrap">
+                    <div class="w-16 h-16 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-line-chart-line ri-xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-orbitron font-bold text-white mb-2">Progress Tracker</h3>
+                    <p class="text-gray-400">Monitor your fitness journey</p>
+                </button>
+                <button id="penalty-nav" class="nav-button card p-8 flex flex-col items-center justify-center text-center !rounded-button glow whitespace-nowrap">
+                    <div class="w-16 h-16 bg-primary bg-opacity-20 !rounded-full flex items-center justify-center mb-4">
+                        <i class="ri-error-warning-line ri-xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-orbitron font-bold text-white mb-2">Penalty Chamber</h3>
+                    <p class="text-gray-400">View your penalties and warnings</p>
+                </button>
+            </div>
+
+            <!-- Today's Summary -->
+            <div class="card p-6 mb-8 !rounded">
+                <h3 class="text-xl font-orbitron font-bold text-white mb-4">Today's Summary</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">Daily Tasks Completed</span>
+                            <span class="text-white font-bold">2/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="text-gray-400">XP Earned Today</span>
+                            <span class="text-white font-bold">250</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 25%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card p-6 !rounded">
+                <h3 class="text-xl font-orbitron font-bold text-white mb-4">Recent Activity</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-3 bg-gray-800 bg-opacity-30 !rounded">
+                        <div class="w-10 h-10 !rounded-full bg-green-500 bg-opacity-20 flex items-center justify-center">
+                            <i class="ri-check-line text-green-500"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white">Completed 5km Run</p>
+                            <p class="text-sm text-gray-400">Today, 08:30 AM</p>
+                        </div>
+                        <div class="text-primary font-bold">+100 XP</div>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 bg-gray-800 bg-opacity-30 !rounded">
+                        <div class="w-10 h-10 !rounded-full bg-green-500 bg-opacity-20 flex items-center justify-center">
+                            <i class="ri-check-line text-green-500"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white">Completed Upper Body Workout</p>
+                            <p class="text-sm text-gray-400">Today, 07:15 AM</p>
+                        </div>
+                        <div class="text-primary font-bold">+150 XP</div>
+                    </div>
+                    <div class="flex items-center gap-4 p-3 bg-gray-800 bg-opacity-30 !rounded">
+                        <div class="w-10 h-10 !rounded-full bg-red-500 bg-opacity-20 flex items-center justify-center">
+                            <i class="ri-close-line text-red-500"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-white">Missed Core Workout</p>
+                            <p class="text-sm text-gray-400">Yesterday, 06:00 PM</p>
+                        </div>
+                        <div class="text-red-500 font-bold">+1 Penalty</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workout Plan Page -->
+    <div id="workout-page" class="dashboard-bg min-h-screen hidden-section">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex justify-between items-center mb-8">
+                <button id="back-to-dashboard" class="flex items-center gap-2 text-gray-400 hover:text-white !rounded-button whitespace-nowrap">
+                    <i class="ri-arrow-left-line"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                <h2 class="text-2xl font-orbitron font-bold text-white">Workout Plan</h2>
+                <div></div>
+            </div>
+            <!-- Daily Tasks -->
+            <div class="card p-6 mb-8 !rounded">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-orbitron font-bold text-white">Daily Tasks</h3>
+                    <button class="bg-primary hover:bg-opacity-90 text-white py-2 px-4 !rounded-button glow whitespace-nowrap">
+                        <i class="ri-add-line mr-1"></i> Add Task
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="task-card bg-gray-800 bg-opacity-50 p-4 !rounded">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="custom-checkbox mt-1" checked>
+                            <div class="flex-1">
+                                <div class="flex justify-between mb-1">
+                                    <h4 class="font-bold text-white">5km Morning Run</h4>
+                                    <span class="text-primary font-bold">+100 XP</span>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-2">Complete a 5km run at moderate pace</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Cardio</span>
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Morning</span>
+                                    <span class="bg-green-900 bg-opacity-50 text-green-400 py-1 px-2 !rounded-full">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-gray-800 bg-opacity-50 p-4 !rounded">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="custom-checkbox mt-1" checked>
+                            <div class="flex-1">
+                                <div class="flex justify-between mb-1">
+                                    <h4 class="font-bold text-white">Upper Body Strength</h4>
+                                    <span class="text-primary font-bold">+150 XP</span>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-2">4 sets of push-ups, pull-ups, and shoulder press</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Strength</span>
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Morning</span>
+                                    <span class="bg-green-900 bg-opacity-50 text-green-400 py-1 px-2 !rounded-full">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-gray-800 bg-opacity-50 p-4 !rounded">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="custom-checkbox mt-1">
+                            <div class="flex-1">
+                                <div class="flex justify-between mb-1">
+                                    <h4 class="font-bold text-white">Core Workout</h4>
+                                    <span class="text-primary font-bold">+120 XP</span>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-2">3 sets of planks, crunches, and leg raises</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Core</span>
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Evening</span>
+                                    <span class="bg-yellow-900 bg-opacity-50 text-yellow-400 py-1 px-2 !rounded-full">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-gray-800 bg-opacity-50 p-4 !rounded">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="custom-checkbox mt-1">
+                            <div class="flex-1">
+                                <div class="flex justify-between mb-1">
+                                    <h4 class="font-bold text-white">Stretching Session</h4>
+                                    <span class="text-primary font-bold">+80 XP</span>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-2">15 minutes of full body stretching</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Flexibility</span>
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Evening</span>
+                                    <span class="bg-yellow-900 bg-opacity-50 text-yellow-400 py-1 px-2 !rounded-full">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-gray-800 bg-opacity-50 p-4 !rounded">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="custom-checkbox mt-1">
+                            <div class="flex-1">
+                                <div class="flex justify-between mb-1">
+                                    <h4 class="font-bold text-white">Hydration Goal</h4>
+                                    <span class="text-primary font-bold">+50 XP</span>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-2">Drink 3 liters of water throughout the day</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500">
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">Health</span>
+                                    <span class="bg-gray-700 py-1 px-2 !rounded-full">All Day</span>
+                                    <span class="bg-yellow-900 bg-opacity-50 text-yellow-400 py-1 px-2 !rounded-full">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Challenges -->
+            
+    <!-- Progress Tracker Page -->
+    <div id="progress-page" class="dashboard-bg min-h-screen hidden-section">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex justify-between items-center mb-8">
+                <button id="back-to-dashboard-from-progress" class="flex items-center gap-2 text-gray-400 hover:text-white !rounded-button whitespace-nowrap">
+                    <i class="ri-arrow-left-line"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                <h2 class="text-2xl font-orbitron font-bold text-white">Progress Tracker</h2>
+                <div></div>
+            </div>
+            <!-- Progress Chart -->
+            <div class="card p-6 mb-8 !rounded">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-orbitron font-bold text-white">Workout Completion</h3>
+                    <div class="flex items-center gap-2">
+                        <button class="bg-gray-800 hover:bg-gray-700 text-white py-1 px-3 !rounded-button whitespace-nowrap">Week</button>
+                        <button class="bg-primary hover:bg-opacity-90 text-white py-1 px-3 !rounded-button glow whitespace-nowrap">Month</button>
+                        <button class="bg-gray-800 hover:bg-gray-700 text-white py-1 px-3 !rounded-button whitespace-nowrap">Year</button>
+                    </div>
+                </div>
+                <div id="progress-chart" class="w-full h-80"></div>
+            </div>
+            <!-- Weekly Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="card p-6 !rounded">
+                    <h3 class="text-lg font-orbitron font-bold text-white mb-4">Completion Rate</h3>
+                    <div class="flex items-center justify-center">
+                        <div id="completion-chart" class="w-full h-48"></div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-3xl font-bold text-white">78%</p>
+                        <p class="text-gray-400">Weekly Average</p>
+                    </div>
+                </div>
+                <div class="card p-6 !rounded">
+                    <h3 class="text-lg font-orbitron font-bold text-white mb-4">XP Gained</h3>
+                    <div class="flex items-center justify-center">
+                        <div id="xp-chart" class="w-full h-48"></div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-3xl font-bold text-white">1,850</p>
+                        <p class="text-gray-400">This Week</p>
+                    </div>
+                </div>
+                <div class="card p-6 !rounded">
+                    <h3 class="text-lg font-orbitron font-bold text-white mb-4">Streak</h3>
+                    <div class="flex items-center justify-center">
+                        <div id="streak-chart" class="w-full h-48"></div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-3xl font-bold text-white">14 days</p>
+                        <p class="text-gray-400">Current Streak</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="card p-6 !rounded">
+                <h3 class="text-xl font-orbitron font-bold text-white mb-4">Recent Achievements</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-gray-800 bg-opacity-50 p-4 !rounded flex flex-col items-center text-center">
+                        <div class="w-16 h-16 !rounded-full bg-primary bg-opacity-20 flex items-center justify-center mb-3 glow">
+                            <i class="ri-fire-line ri-xl text-primary"></i>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">10-Day Streak</h4>
+                        <p class="text-sm text-gray-400">Complete workouts for 10 consecutive days</p>
+                        <p class="text-primary font-bold mt-2">+200 XP</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 !rounded flex flex-col items-center text-center">
+                        <div class="w-16 h-16 !rounded-full bg-primary bg-opacity-20 flex items-center justify-center mb-3 glow">
+                            <i class="ri-run-line ri-xl text-primary"></i>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Marathon Runner</h4>
+                        <p class="text-sm text-gray-400">Run a total of 100km since joining</p>
+                        <p class="text-primary font-bold mt-2">+500 XP</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 !rounded flex flex-col items-center text-center">
+                        <div class="w-16 h-16 !rounded-full bg-primary bg-opacity-20 flex items-center justify-center mb-3 glow">
+                            <i class="ri-heart-pulse-line ri-xl text-primary"></i>
+                        </div>
+                        <h4 class="font-bold text-white mb-1">Cardio Master</h4>
+                        <p class="text-sm text-gray-400">Complete 50 cardio workouts</p>
+                        <p class="text-primary font-bold mt-2">+300 XP</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 !rounded flex flex-col items-center text-center">
+                        <div class="w-16 h-16 !rounded-full bg-gray-700 flex items-center justify-center mb-3">
+                            <i class="ri-award-line ri-xl text-gray-500"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-500 mb-1">Strength Champion</h4>
+                        <p class="text-sm text-gray-500">Complete 100 strength workouts</p>
+                        <p class="text-gray-500 font-bold mt-2">67/100</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Penalty Chamber Page -->
+    <div id="penalty-page" class="dashboard-bg min-h-screen hidden-section">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex justify-between items-center mb-8">
+                <button id="back-to-dashboard-from-penalty" class="flex items-center gap-2 text-gray-400 hover:text-white !rounded-button whitespace-nowrap">
+                    <i class="ri-arrow-left-line"></i>
+                    <span>Back to Dashboard</span>
+                </button>
+                <h2 class="text-2xl font-orbitron font-bold text-white">Penalty Chamber</h2>
+                <div></div>
+            </div>
+            <!-- Penalty Status -->
+            <div class="card p-6 mb-8 !rounded">
+                <h3 class="text-xl font-orbitron font-bold text-white mb-6">Current Penalty Status</h3>
+                <div class="flex flex-col items-center">
+                    <div class="flex gap-6 mb-6">
+                        <div class="w-16 h-16 !rounded-full flex items-center justify-center border-4 border-red-500 glow-red">
+                            <i class="ri-close-line ri-2x text-red-500"></i>
+                        </div>
+                        <div class="w-16 h-16 !rounded-full flex items-center justify-center border-4 border-gray-700">
+                            <i class="ri-close-line ri-2x text-gray-700"></i>
+                        </div>
+                        <div class="w-16 h-16 !rounded-full flex items-center justify-center border-4 border-gray-700">
+                            <i class="ri-close-line ri-2x text-gray-700"></i>
+                        </div>
+                        <div class="w-16 h-16 !rounded-full flex items-center justify-center border-4 border-gray-700 relative">
+                            <i class="ri-close-line ri-2x text-gray-700"></i>
+                            <div class="absolute -top-2 -right-2 w-6 h-6 !rounded-full bg-red-500 flex items-center justify-center text-white text-xs font-bold animate-pulse">!</div>
+                        </div>
+                    </div>
+                    <div class="text-center mb-8">
+                        <p class="text-xl font-bold text-white mb-2">1/3 Penalties</p>
+                        <p class="text-gray-400 max-w-lg">You currently have 1 penalty. Accumulating 4 penalties will result in a level reset.</p>
+                    </div>
+                    <div class="bg-red-900 bg-opacity-20 border border-red-500 p-4 !rounded max-w-2xl w-full">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 !rounded-full bg-red-500 bg-opacity-20 flex items-center justify-center mt-1">
+                                <i class="ri-error-warning-line text-red-500"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-red-400 mb-1">Warning</h4>
+                                <p class="text-gray-300">Accumulating 4 penalties will result in a level reset. You will lose 25% of your current XP and your current streak will be reset to 0.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Penalty History -->
+            <div class="card p-6 !rounded">
+                <h3 class="text-xl font-orbitron font-bold text-white mb-4">Penalty History</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-full">
+                        <thead>
+                            <tr class="border-b border-gray-800">
+                                <th class="py-3 px-4 text-left text-gray-400 font-medium">Date</th>
+                                <th class="py-3 px-4 text-left text-gray-400 font-medium">Reason</th>
+                                <th class="py-3 px-4 text-left text-gray-400 font-medium">Status</th>
+                                <th class="py-3 px-4 text-left text-gray-400 font-medium">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-800">
+                                <td class="py-3 px-4 text-white">April 13, 2025</td>
+                                <td class="py-3 px-4 text-white">Missed Core Workout</td>
+                                <td class="py-3 px-4">
+                                    <span class="bg-red-900 bg-opacity-50 text-red-400 py-1 px-2 !rounded-full text-xs">Active</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <button class="bg-primary hover:bg-opacity-90 text-white py-1 px-3 !rounded-button text-sm glow whitespace-nowrap">Redeem Challenge</button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800">
+                                <td class="py-3 px-4 text-white">April 10, 2025</td>
+                                <td class="py-3 px-4 text-white">Missed Leg Day</td>
+                                <td class="py-3 px-4">
+                                    <span class="bg-green-900 bg-opacity-50 text-green-400 py-1 px-2 !rounded-full text-xs">Redeemed</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="text-gray-400 text-sm">Completed 5km Extra Run</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-800">
+                                <td class="py-3 px-4 text-white">April 5, 2025</td>
+                                <td class="py-3 px-4 text-white">Missed Cardio Session</td>
+                                <td class="py-3 px-4">
+                                    <span class="bg-green-900 bg-opacity-50 text-green-400 py-1 px-2 !rounded-full text-xs">Redeemed</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="text-gray-400 text-sm">Completed Double Workout</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 text-white">March 28, 2025</td>
+                                <td class="py-3 px-4 text-white">Failed Hydration Goal</td>
+                                <td class="py-3 px-4">
+                                    <span class="bg-green-900 bg-opacity-50 text-green-400 py-1 px-2 !rounded-full text-xs">Redeemed</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="text-gray-400 text-sm">Completed 7-Day Perfect Streak</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="week2.js">
+    </script>
+</body>
+</html>
