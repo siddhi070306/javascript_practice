@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  height: 100%;
+}
+
+body {
+  padding: 1rem;
+  width: 100%;
+}
+
+main {
+  padding: 1.5rem;
+  padding-top: 3rem;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.view1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.view1 p {
+  font-weight: 3rem;
+  opacity: 0.7;
+  width: 100%;
+}
+.view1 h1 {
+  font-weight: 200px;
+  font-size: 3.5rem;
+  width: 70%;
+}
+
+.view2 {
+  margin: 2rem 0;
+}
+.view2 .top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.view2 .top button {
+  padding: 1rem;
+  border-radius: 0.9em;
+  background-color: black;
+  color: white;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.view2 .top p {
+  font-weight: 3rem;
+  opacity: 0.7;
+  width: 100%;
+}
+.view2 .top h1 {
+  font-weight: 100px;
+  font-size: 2.5rem;
+  width: 90%;
+}
+.view2 .line {
+  background-color: black;
+  height: 1px;
+  margin-top: 1.5em;
+}
+.view2 .bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.view2 .elem img {
+  width: 15%;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+}
+.view2 .elem h1 {
+  font-weight: 200px;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.view2 .elem p {
+  font-weight: 2.5rem;
+}
+
+img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 1rem;
+}
+
+@media (min-width: 1020px) {
+  main {
+    padding: 3rem;
+  }
+  .view1 h1 {
+    font-size: 5rem;
+    width: 100%;
+  }
+  .view2 {
+    display: flex;
+    flex-direction: row;
+  }
+  .view2 .top {
+    width: 60%;
+    justify-content: space-between;
+  }
+  .view2 .top h1 {
+    font-size: 5rem;
+  }
+  .view2 .line {
+    height: initial;
+    width: 1px;
+    position: relative;
+    left: -40px;
+  }
+  .view2 .bottom {
+    width: 40%;
+  }
+  .view2 .bottom .line {
+    height: 1.2px;
+    width: 100%;
+  }
+}/*# sourceMappingURL=replica.css.map */

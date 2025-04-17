@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
+  img{
+  
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+
+  }
+  .image{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-areas:
+    "a a b c"
+    "a a d e"
+    "f g j j"
+    "h i j j";
+  }
+  .image-image-a{
+    grid-area: a;
+  }
